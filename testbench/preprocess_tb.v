@@ -47,38 +47,41 @@ module tb_preprocess;
         errors = 0;
         checks = 0;
 
-        // Simplified test: fix B and iterate Op and A only
-        B = 4'b0000;
+        // Very simplified test: fixed inputs A and B as requested by user
+        // A = 3'b001 -> represent as 4'b0001, B = 3'b010 -> 4'b0010
+        A = 4'b0001;
+        B = 4'b0010;
+
+        // iterate Op only (0..7)
         for (i = 0; i < 8; i = i + 1) begin
             Op = i[2:0];
+
+            // compute control helper signals (match preprocess logic)
             add1Signal = Op[2] | (~Op[2] & ~Op[1] & ~Op[0]);
             op1_ASignal = add1Signal;
             op2_BSignal = Op[2] | (~Op[2] & ~(Op[1] ^ Op[0]));
             cplSignal = ~Op[2] & Op[1];
 
-            for (j = 0; j < 16; j = j + 1) begin
-                A = j[3:0];
-                #1; // let signals propagate
+            #1; // let DUT settle and record in VCD
 
-                // compute expected values (use module-scope regs)
-                muxAMuxB = expected_muxAdd(add1Signal);
-                AMod_exp = expected_muxOut(muxAMuxB, A, op1_ASignal);
-                muxInputCPL = expected_muxInput(A, B, op2_BSignal);
-                BMod_exp = cplSignal ? ~muxInputCPL : muxInputCPL;
+            // compute expected values for current Op
+            muxAMuxB = expected_muxAdd(add1Signal);
+            AMod_exp = expected_muxOut(muxAMuxB, A, op1_ASignal);
+            muxInputCPL = expected_muxInput(A, B, op2_BSignal);
+            BMod_exp = cplSignal ? ~muxInputCPL : muxInputCPL;
 
-                checks = checks + 2;
-                if (AMod !== AMod_exp) begin
-                    $display("%0t ERROR: Op=%b A=%b B=%b AMod=%b expected=%b", $time, Op, A, B, AMod, AMod_exp);
-                    errors = errors + 1;
-                end
-                if (BMod !== BMod_exp) begin
-                    $display("%0t ERROR: Op=%b A=%b B=%b BMod=%b expected=%b", $time, Op, A, B, BMod, BMod_exp);
-                    errors = errors + 1;
-                end
+            checks = checks + 2;
+            if (AMod !== AMod_exp) begin
+                $display("%0t ERROR: Op=%b A=%b B=%b AMod=%b expected=%b", $time, Op, A, B, AMod, AMod_exp);
+                errors = errors + 1;
+            end
+            if (BMod !== BMod_exp) begin
+                $display("%0t ERROR: Op=%b A=%b B=%b BMod=%b expected=%b", $time, Op, A, B, BMod, BMod_exp);
+                errors = errors + 1;
             end
         end
 
-        $display("Simplified preprocess test finished: %0d checks, %0d errors", checks, errors);
+        $display("Very simplified preprocess test finished: %0d checks, %0d errors", checks, errors);
         $finish;
     end
 
