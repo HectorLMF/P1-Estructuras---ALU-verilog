@@ -1,0 +1,113 @@
+$date
+	Sun Oct 12 12:03:46 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_preprocess $end
+$var reg 4 ! A [3:0] $end
+$upscope $end
+$scope module tb_preprocess $end
+$var reg 4 " B [3:0] $end
+$upscope $end
+$scope module tb_preprocess $end
+$var reg 3 # Op [2:0] $end
+$upscope $end
+$scope module tb_preprocess $end
+$var wire 4 $ AMod [3:0] $end
+$upscope $end
+$scope module tb_preprocess $end
+$var wire 4 % BMod [3:0] $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 %
+b0 $
+b0 #
+b0 "
+b0 !
+$end
+#1000
+b1111 %
+b1111 $
+b1111 "
+b1111 !
+#2000
+b0 %
+b1 $
+b0 "
+b0 !
+b1 #
+#3000
+b1111 %
+b1111 "
+b1111 !
+#4000
+b1111 %
+b0 "
+b0 !
+b10 #
+#5000
+b0 %
+b1111 "
+b1111 !
+#6000
+b1111 %
+b0 "
+b0 !
+b11 #
+#7000
+b0 %
+b1111 "
+b1111 !
+#8000
+b0 $
+b0 "
+b0 !
+b100 #
+#9000
+b1111 %
+b1111 $
+b1111 "
+b1111 !
+#10000
+b0 %
+b0 $
+b0 "
+b0 !
+b101 #
+#11000
+b1111 %
+b1111 $
+b1111 "
+b1111 !
+#12000
+b0 %
+b0 $
+b0 "
+b0 !
+b110 #
+#13000
+b1111 %
+b1111 $
+b1111 "
+b1111 !
+#14000
+b0 %
+b0 $
+b0 "
+b0 !
+b111 #
+#15000
+b1111 %
+b1111 $
+b1111 "
+b1111 !
+#16000
