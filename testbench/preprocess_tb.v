@@ -22,7 +22,6 @@ module tb_preprocess;
     reg [3:0] AMod_exp;
     reg [3:0] muxInputCPL;
     reg [3:0] BMod_exp;
-    reg [3:0] test_vectors [0:1];
 
     // Instantiate unit under test
     preprocess uut(.AMod(AMod), .BMod(BMod), .A(A), .B(B), .Op(Op));
@@ -48,13 +47,8 @@ module tb_preprocess;
         errors = 0;
         checks = 0;
 
-        // Very simplified: test two input vectors where A==B
-        errors = 0;
-        checks = 0;
-
-    test_vectors[0] = 4'b0000;
-    test_vectors[1] = 4'b1111;
-
+        // Simplified test: fix B and iterate Op and A only
+        B = 4'b0000;
         for (i = 0; i < 8; i = i + 1) begin
             Op = i[2:0];
             add1Signal = Op[2] | (~Op[2] & ~Op[1] & ~Op[0]);
@@ -62,11 +56,11 @@ module tb_preprocess;
             op2_BSignal = Op[2] | (~Op[2] & ~(Op[1] ^ Op[0]));
             cplSignal = ~Op[2] & Op[1];
 
-            for (j = 0; j < 2; j = j + 1) begin
-                A = test_vectors[j];
-                B = test_vectors[j];
-                #1;
+            for (j = 0; j < 16; j = j + 1) begin
+                A = j[3:0];
+                #1; // let signals propagate
 
+                // compute expected values (use module-scope regs)
                 muxAMuxB = expected_muxAdd(add1Signal);
                 AMod_exp = expected_muxOut(muxAMuxB, A, op1_ASignal);
                 muxInputCPL = expected_muxInput(A, B, op2_BSignal);
@@ -84,7 +78,7 @@ module tb_preprocess;
             end
         end
 
-        $display("Very simplified preprocess test finished: %0d checks, %0d errors", checks, errors);
+        $display("Simplified preprocess test finished: %0d checks, %0d errors", checks, errors);
         $finish;
     end
 
