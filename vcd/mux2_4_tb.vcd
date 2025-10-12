@@ -1,0 +1,72 @@
+$date
+	Sun Oct 12 10:51:58 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_mux2_4 $end
+$var wire 4 ! Out [3:0] $end
+$var reg 4 " A [3:0] $end
+$var reg 4 # B [3:0] $end
+$var reg 1 $ s $end
+$scope module uut $end
+$var wire 4 % A [3:0] $end
+$var wire 4 & B [3:0] $end
+$var wire 1 $ s $end
+$var wire 4 ' Out [3:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 '
+b1111 &
+b0 %
+0$
+b1111 #
+b0 "
+b0 !
+$end
+#10000
+b1111 !
+b1111 '
+1$
+#25000
+b0 !
+b0 '
+0$
+#35000
+b1111 !
+b1111 '
+1$
+#45000
+b0 !
+b0 '
+0$
+#55000
+b1111 !
+b1111 '
+1$
+#65000
+b0 !
+b0 '
+0$
+#75000
+b1111 !
+b1111 '
+1$
+#85000
+b0 !
+b0 '
+0$
+#95000
+b1111 !
+b1111 '
+1$
+#100000
